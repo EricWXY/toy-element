@@ -25,21 +25,6 @@ const customStyles = computed(() => ({ color: props.color ?? void 0 }));
   </i>
 </template>
 
-<style scoped>
-.er-icon {
-  --er-icon-color: inherit;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  fill: currentColor;
-  color: var(--er-icon-color);
-  font-size: inherit;
-}
-
-@each $val in primary, info, success, warning, danger {
-  .er-icon--$(val) {
-    --er-icon-color: var(--er-color-$(val));
-  }
-}
+<style>
+@import "./style.css";
 </style>

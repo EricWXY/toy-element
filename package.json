@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpm --filter @toy-element/play dev",
-    "story": "pnpm --filter @toy-element/play storybook",
+    "dev": "pnpm run build && pnpm --filter @toy-element/play dev",
+    "story": "pnpm run build && pnpm --filter @toy-element/play storybook",
     "docs:dev": "pnpm --filter @toy-element/docs dev",
     "docs:build": "pnpm --filter @toy-element/docs build",
     "test": "pnpm --filter @toy-element/components test",

@@ -1,6 +1,6 @@
 {
   "name": "toy-element",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Components library by Vue3 + TS",
   "type": "module",
   "main": "./dist/umd/index.umd.cjs",
@@ -24,11 +24,13 @@
     "./dist/index.css"
   ],
   "scripts": {
-    "build": "run-s build-only move-style",
+    "build": "run-s clean build-only move-style",
     "build-only": "run-p build-es build-umd",
     "build-umd": "vite build --config vite.umd.config.ts",
     "build-es": "vite build --config vite.es.config.ts",
-    "move-style": "move-file dist/es/index.css dist/index.css"
+    "move-style": "move-file dist/es/index.css dist/index.css",
+    "clean": "rimraf dist",
+    "release": "release-it"
   },
   "keywords": [],
   "author": "",
@@ -41,8 +43,9 @@
     "async-validator": "^4.2.5"
   },
   "devDependencies": {
-    "vite-plugin-dts": "^3.9.1",
-    "@toy-element/components": "workspace:*"
+    "@toy-element/components": "workspace:*",
+    "release-it": "^17.2.1",
+    "vite-plugin-dts": "^3.9.1"
   },
   "peerDependencies": {
     "vue": "^3.4.19"

@@ -9,8 +9,7 @@
     "docs:dev": "pnpm --filter @toy-element/docs dev",
     "docs:build": "pnpm --filter @toy-element/docs build",
     "test": "pnpm --filter @toy-element/components test",
-    "build": "pnpm --filter toy-element build",
-    "release":"pnpm --filter toy-element release"
+    "build": "pnpm --filter toy-element build"
   },
   "keywords": [],
   "author": "",
@@ -33,6 +32,7 @@
     "postcss-each-variables": "^0.3.0",
     "postcss-for": "^2.1.1",
     "postcss-nested": "^6.0.1",
+    "release-it": "^17.2.1",
     "rimraf": "^5.0.7",
     "typescript": "^5.2.2",
     "vite": "^5.1.4",

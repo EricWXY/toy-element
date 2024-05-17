@@ -19,3 +19,6 @@
 
 ## 构建元数据
 - 可以用于提供有关构建的附加信息，如构建时间或构建系统信息。
+
+
+git push --set-upstream origin master

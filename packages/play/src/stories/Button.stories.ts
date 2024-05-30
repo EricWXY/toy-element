@@ -3,6 +3,7 @@ import { fn, within, userEvent, expect, clearAllMocks } from "@storybook/test";
 import { set } from "lodash-es";
 
 import { ErButton, ErButtonGroup } from "toy-element";
+import 'toy-element/dist/theme/Button.css';
 
 type Story = StoryObj<typeof ErButton> & { argTypes?: ArgTypes };
 

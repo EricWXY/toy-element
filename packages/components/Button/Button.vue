@@ -35,6 +35,9 @@ const handleBtnClickThrottle = throttle(
 
 defineExpose<ButtonInstance>({
   ref: _ref,
+  disabled,
+  size,
+  type
 });
 </script>
 

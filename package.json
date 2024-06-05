@@ -41,7 +41,8 @@
     "typescript": "^5.4.5",
     "vite": "^5.2.12",
     "vitest": "^1.6.0",
-    "vue-tsc": "^1.8.27"
+    "vue-tsc": "^1.8.27",
+    "vite-plugin-dts": "^3.9.1"
   },
   "dependencies": {
     "@toy-element/hooks": "workspace:*",

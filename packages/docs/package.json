@@ -2,16 +2,18 @@
   "name": "@toy-element/docs",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "vitepress dev",
-    "build": "vitepress build",
-    "preview": "vitepress preview"
+    "dev": "vitepress dev ./",
+    "build": "vitepress build ./"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@vitepress-demo-preview/plugin": "^1.2.3",
+    "vitepress-preview-component":"workspace:*",
     "vitepress": "1.0.0-rc.44"
   }
 }

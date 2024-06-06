@@ -26,10 +26,10 @@
   "scripts": {
     "build": "run-p build-es build-umd",
     "build:watch": "run-p build-es:watch build-umd:watch",
-    "build-umd": "vite build --config vite.umd.config.ts",
-    "build-es": "vite build --config vite.es.config.ts",
-    "build-umd:watch": "vite build --watch --config vite.umd.config.ts",
-    "build-es:watch": "vite build --watch --config vite.es.config.ts",
+    "build-umd": "vite build --config build/vite.umd.config.ts",
+    "build-es": "vite build --config build/vite.es.config.ts",
+    "build-umd:watch": "vite build --watch --config build/vite.umd.config.ts",
+    "build-es:watch": "vite build --watch --config build/vite.es.config.ts",
     "release": "release-it"
   },
   "keywords": [],
@@ -45,6 +45,7 @@
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.4",
     "@toy-element/components": "workspace:*",
+    "rollup-plugin-visualizer": "^5.12.0",
     "terser": "^5.31.0",
     "vite-plugin-compression2": "^1.1.1"
   },

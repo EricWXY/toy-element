@@ -10,7 +10,8 @@
     "docs:build": "pnpm --filter @toy-element/docs build",
     "test": "cross-env NODE_ENV=test pnpm --filter @toy-element/components test",
     "build": "cross-env NODE_ENV=production pnpm --filter toy-element build",
-    "build:dev": "cross-env NODE_ENV=development pnpm --filter toy-element build:watch"
+    "build:dev": "cross-env NODE_ENV=development pnpm --filter toy-element build:watch",
+    "release":"pnpm --filter toy-element release"
   },
   "keywords": [],
   "author": "",

@@ -131,17 +131,7 @@ importers:
         specifier: ^1.54.8
         version: 1.77.4
 
-  packages/components:
-    devDependencies:
-      '@vitest/coverage-v8':
-        specifier: ^1.4.0
-        version: 1.6.0(vitest@1.6.0(@types/node@20.12.13)(jsdom@24.1.0)(sass@1.77.4)(terser@5.31.0))
-      '@vue/test-utils':
-        specifier: ^2.4.5
-        version: 2.4.6
-      jsdom:
-        specifier: ^24.0.0
-        version: 24.1.0
+  packages/components: {}
 
   packages/core:
     dependencies:

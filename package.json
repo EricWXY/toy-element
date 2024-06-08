@@ -8,10 +8,12 @@
     "story": "pnpm --filter @toy-element/play storybook",
     "docs:dev": "pnpm --filter @toy-element/docs dev",
     "docs:build": "pnpm --filter @toy-element/docs build",
-    "test": "cross-env NODE_ENV=test pnpm --filter @toy-element/components test",
+    "test": "run-p test-utils test-comp",
+    "test-comp": "cross-env NODE_ENV=test pnpm --filter @toy-element/components test",
+    "test-utils": "cross-env NODE_ENV=test pnpm --filter @toy-element/utils test",
     "build": "cross-env NODE_ENV=production pnpm --filter toy-element build",
     "build:dev": "cross-env NODE_ENV=development pnpm --filter toy-element build:watch",
-    "release":"pnpm --filter toy-element release"
+    "release": "pnpm --filter toy-element release"
   },
   "keywords": [],
   "author": "",
@@ -49,6 +51,9 @@
     "@toy-element/hooks": "workspace:*",
     "@toy-element/theme": "workspace:*",
     "@toy-element/utils": "workspace:*",
+    "@vitest/coverage-v8": "^1.4.0",
+    "@vue/test-utils": "^2.4.5",
+    "jsdom": "^24.0.0",
     "lodash-es": "^4.17.21",
     "toy-element": "workspace:*",
     "vue": "^3.4.27"

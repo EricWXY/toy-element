@@ -1,8 +1,10 @@
 import { describe, it, expect, vi } from "vitest";
 import type { AlertType } from "./types";
 import { mount } from "@vue/test-utils";
+import {withInstall} from '@toy-element/utils'
 import Alert from "./Alert.vue";
 import Icon from "../Icon/Icon.vue";
+import {ErAlert} from './index'
 
 describe("Alert.vue", () => {
   const title = "Test Alert" as const;
@@ -129,3 +131,24 @@ describe("Alert.vue", () => {
     expect(wrapper.find(".er-alert").attributes().style).toBe("");
   });
 });
+
+describe('Alert/index',()=>{
+  it('should be exported with withInstall()',()=>{
+    expect(ErAlert.install).toBeDefined()
+  })
+  it('component should be exported',()=>{
+    expect(ErAlert).toBe(Alert)
+  })
+
+  // 可选
+  it('should enhance Alert component',()=>{
+    const enhancedAlert = withInstall(Alert)
+    expect(enhancedAlert).toBe(ErAlert)
+  })
+
+  // 可选
+  it('should apply specific enhance',()=>{
+    const enhancedAlert = withInstall(Alert)
+    expect(enhancedAlert).toHaveProperty('install')
+  })
+})

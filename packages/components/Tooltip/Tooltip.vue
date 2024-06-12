@@ -47,6 +47,22 @@ const closeDelay = computed(() =>
   props.trigger === "hover" ? props.hideTimeout : 0
 );
 
+const triggerStrategyMap: Map<string, () => void> = new Map();
+triggerStrategyMap.set("hover", () => {
+  events.value["mouseenter"] = openFinal;
+  outerEvents.value["mouseleave"] = closeFinal;
+  dropdownEvents.value["mouseenter"] = openFinal;
+});
+triggerStrategyMap.set("click", () => {
+  events.value["click"] = togglePopper;
+});
+triggerStrategyMap.set("contextmenu", () => {
+  events.value["contextmenu"] = (e) => {
+    e.preventDefault();
+    openFinal();
+  };
+});
+
 let openDebounce: DebounceFunc<() => void> | void;
 let closeDebounce: DebounceFunc<() => void> | void;
 
@@ -72,23 +88,8 @@ function setVisibel(val: boolean) {
 
 function attachEvents() {
   if (props.disabled || props.manual) return;
-  if (props.trigger === "hover") {
-    events.value["mouseenter"] = openFinal;
-    outerEvents.value["mouseleave"] = closeFinal;
-    dropdownEvents.value["mouseenter"] = openFinal;
-    return;
-  }
-  if (props.trigger === "click") {
-    events.value["click"] = togglePopper;
-    return;
-  }
-  if (props.trigger === "contextmenu") {
-    events.value["contextmenu"] = (e) => {
-      e.preventDefault();
-      openFinal();
-    };
-    return;
-  }
+
+  triggerStrategyMap.get(props.trigger)?.();
 }
 
 let popperInstance: null | Instance;
@@ -124,7 +125,6 @@ watch(
         popperNode.value,
         popperOptions.value
       );
-      console.log(popperInstance)
     }
   },
   { flush: "post" }
@@ -168,7 +168,6 @@ useClickOutside(containerNode, () => {
 });
 
 onUnmounted(() => {
-  console.log("unmount",popperInstance);
   destroyPopperInstance();
 });
 

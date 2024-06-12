@@ -1,10 +1,12 @@
-import { describe, it, expect, vi } from "vitest";
 import type { AlertType } from "./types";
+
+import { describe, it, expect, vi } from "vitest";
 import { mount } from "@vue/test-utils";
-import {withInstall} from '@toy-element/utils'
+import { withInstall } from "@toy-element/utils";
+import { ErAlert } from "./index";
+
 import Alert from "./Alert.vue";
-import Icon from "../Icon/Icon.vue";
-import {ErAlert} from './index'
+import ErIcon from "../Icon/Icon.vue";
 
 describe("Alert.vue", () => {
   const title = "Test Alert" as const;
@@ -25,7 +27,7 @@ describe("Alert.vue", () => {
     expect(wrapper.text()).toContain(desc);
 
     // close icon
-    const iconElement = wrapper.findComponent(Icon);
+    const iconElement = wrapper.findComponent(ErIcon);
     expect(iconElement.exists()).toBeTruthy();
     expect(iconElement.attributes("icon")).toBe("xmark");
 
@@ -60,7 +62,7 @@ describe("Alert.vue", () => {
       },
     });
 
-    const iconElement = wrapper.findComponent(Icon);
+    const iconElement = wrapper.findComponent(ErIcon);
     expect(iconElement.exists()).toBeTruthy();
     expect(iconElement.attributes("icon")).toBe(iconName);
   });
@@ -82,7 +84,7 @@ describe("Alert.vue", () => {
         stubs: ["ErIcon"],
       },
     });
-    wrapper.findComponent(Icon).trigger("click");
+    wrapper.findComponent(ErIcon).trigger("click");
     expect(onClose).toHaveBeenCalled();
   });
 
@@ -132,23 +134,23 @@ describe("Alert.vue", () => {
   });
 });
 
-describe('Alert/index',()=>{
-  it('should be exported with withInstall()',()=>{
-    expect(ErAlert.install).toBeDefined()
-  })
-  it('component should be exported',()=>{
-    expect(ErAlert).toBe(Alert)
-  })
+describe("Alert/index", () => {
+  it("should be exported with withInstall()", () => {
+    expect(ErAlert.install).toBeDefined();
+  });
+  it("component should be exported", () => {
+    expect(ErAlert).toBe(Alert);
+  });
 
   // 可选
-  it('should enhance Alert component',()=>{
-    const enhancedAlert = withInstall(Alert)
-    expect(enhancedAlert).toBe(ErAlert)
-  })
+  it("should enhance Alert component", () => {
+    const enhancedAlert = withInstall(Alert);
+    expect(enhancedAlert).toBe(ErAlert);
+  });
 
   // 可选
-  it('should apply specific enhance',()=>{
-    const enhancedAlert = withInstall(Alert)
-    expect(enhancedAlert).toHaveProperty('install')
-  })
-})
+  it("should apply specific enhance", () => {
+    const enhancedAlert = withInstall(Alert);
+    expect(enhancedAlert).toHaveProperty("install");
+  });
+});

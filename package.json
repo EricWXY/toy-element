@@ -8,9 +8,10 @@
     "story": "pnpm --filter @toy-element/play storybook",
     "docs:dev": "pnpm --filter @toy-element/docs dev",
     "docs:build": "pnpm --filter @toy-element/docs build",
-    "test": "run-s test-utils test-comp",
+    "test": "run-s test-utils test-hooks test-comp",
     "test-comp": "cross-env NODE_ENV=test pnpm --filter @toy-element/components test",
     "test-utils": "cross-env NODE_ENV=test pnpm --filter @toy-element/utils test",
+    "test-hooks": "cross-env NODE_ENV=test pnpm --filter @toy-element/hooks test",
     "build": "cross-env NODE_ENV=production pnpm --filter toy-element build",
     "build:dev": "cross-env NODE_ENV=development pnpm --filter toy-element build:watch",
     "release": "pnpm --filter toy-element release"

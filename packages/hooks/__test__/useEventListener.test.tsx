@@ -25,6 +25,7 @@ describe("hooks/useEventListener", () => {
     await target.click();
     expect(handler).toHaveBeenCalledOnce();
   });
+
   it("should add and remove event listener when target is Ref<HTMLElement>", async () => {
     const target = ref<HTMLElement | void>();
     const handler = vi.fn();
@@ -38,13 +39,13 @@ describe("hooks/useEventListener", () => {
       })
     );
 
-    await document.getElementById('container')?.click()
+    await document.getElementById("container")?.click();
     await target.value?.click();
 
     expect(handler).toHaveBeenCalledOnce();
 
     target.value = document.createElement("div");
-    await document.getElementById('container')?.click()
+    await document.getElementById("container")?.click();
     expect(handler).toHaveBeenCalledOnce();
   });
 });

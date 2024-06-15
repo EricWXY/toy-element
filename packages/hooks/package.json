@@ -1,12 +1,25 @@
 {
   "name": "@toy-element/hooks",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.ts",
-  "scripts": {
-    "test": "vitest --run --coverage"
+  "type": "module",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "scripts": {
+    "test": "vitest --run --coverage",
+    "build": "vite build"
+  },
+  "license": "ISC",
+  "peerDependencies": {
+    "vue":"^3.4.27",
+    "lodash-es": "^4.17.21"
+  }
 }

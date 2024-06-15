@@ -148,15 +148,15 @@ describe("Tooltip.vue", () => {
   });
 
   // 虚拟触发节点的测试
-  // test("tooltip with virtual trigger node", async () => {
-  //   // ... 省略其他设置
-  //   const virtualRef = document.createElement("div");
-  //   const wrapper = mount(Tooltip, {
-  //     props: { virtualRef, virtualTriggering: true },
-  //   });
-  //   // 测试虚拟节点的事件触发
-  //   virtualRef.dispatchEvent(new Event("mouseenter"));
-  //   await vi.runAllTimers();
-  //   expect(wrapper.find(".er-tooltip__popper").exists()).toBeTruthy();
-  // });
+  test("tooltip with virtual trigger node", async () => {
+    // ... 省略其他设置
+    const virtualRef = document.createElement("div");
+    const wrapper = mount(Tooltip, {
+      props: { virtualRef, virtualTriggering: true },
+    });
+    // 测试虚拟节点的事件触发
+    virtualRef.dispatchEvent(new Event("mouseenter"));
+    await vi.runAllTimers();
+    expect(wrapper.find(".er-tooltip__popper").exists()).toBeTruthy();
+  });
 });

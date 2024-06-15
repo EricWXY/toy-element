@@ -17,6 +17,9 @@ importers:
       '@toy-element/utils':
         specifier: workspace:*
         version: link:packages/utils
+      '@toy-element/vite-plugins':
+        specifier: workspace:*
+        version: link:libs/vite-plugins
       '@vitest/coverage-v8':
         specifier: ^1.4.0
         version: 1.6.0(vitest@1.6.0(@types/node@20.12.13)(jsdom@24.1.0)(sass@1.77.4)(terser@5.31.0))
@@ -118,7 +121,9 @@ importers:
         specifier: ^1.8.27
         version: 1.8.27(typescript@5.4.5)
 
-  _node_modules/vitepress-preview-component:
+  libs/vite-plugins: {}
+
+  libs/vitepress-preview-component:
     dependencies:
       vitepress:
         specifier: '*'
@@ -180,9 +185,16 @@ importers:
         version: 1.0.0-rc.44(@algolia/client-search@4.23.3)(@types/node@20.12.13)(@types/react@18.3.3)(async-validator@4.2.5)(postcss@8.4.38)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.4)(search-insights@2.14.0)(terser@5.31.0)(typescript@5.4.5)
       vitepress-preview-component:
         specifier: workspace:*
-        version: link:../../_node_modules/vitepress-preview-component
+        version: link:../../libs/vitepress-preview-component
 
-  packages/hooks: {}
+  packages/hooks:
+    dependencies:
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
+      vue:
+        specifier: ^3.4.27
+        version: 3.4.27(typescript@5.4.5)
 
   packages/play:
     devDependencies:
@@ -5660,6 +5672,9 @@ packages:
   vue-component-type-helpers@2.0.19:
     resolution: {integrity: sha512-cN3f1aTxxKo4lzNeQAkVopswuImUrb5Iurll9Gaw5cqpnbTAxtEMM1mgi6ou4X79OCyqYv1U1mzBHJkzmiK82w==}
 
+  vue-component-type-helpers@2.0.21:
+    resolution: {integrity: sha512-3NaicyZ7N4B6cft4bfb7dOnPbE9CjLcx+6wZWAg5zwszfO4qXRh+U52dN5r5ZZfc6iMaxKCEcoH9CmxxoFZHLg==}
+
   vue-demi@0.14.7:
     resolution: {integrity: sha512-EOG8KXDQNwkJILkx/gPcoL/7vH+hORoBaKgGe+6W7VFMvCYJfmF2dGbvgDroVnI8LU7/kTu8mbjRZGBU1z9NTA==}
     engines: {node: '>=12'}
@@ -7933,7 +7948,7 @@ snapshots:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.4.27(typescript@5.4.5)
-      vue-component-type-helpers: 2.0.19
+      vue-component-type-helpers: 2.0.21
     transitivePeerDependencies:
       - encoding
       - prettier
@@ -12241,6 +12256,8 @@ snapshots:
       typescript: 5.4.5
 
   vue-component-type-helpers@2.0.19: {}
+
+  vue-component-type-helpers@2.0.21: {}
 
   vue-demi@0.14.7(vue@3.4.27(typescript@5.4.5)):
     dependencies:

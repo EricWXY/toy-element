@@ -6,8 +6,8 @@ import useClickOutside from "../useClickOutside";
 
 describe("hooks/useClickOutside", () => {
   it('should add "click-outside" listener', async () => {
-    const target = ref<HTMLElement | void>();
-    const btnRef = ref<HTMLButtonElement | void>();
+    const target = ref<HTMLElement>();
+    const btnRef = ref<HTMLElement>();
 
     const handler = vi.fn();
 
@@ -28,6 +28,6 @@ describe("hooks/useClickOutside", () => {
     expect(handler).not.toHaveBeenCalled();
 
     await document.body.click();
-    expect(handler).toHaveBeenCalled();
+    expect(handler).toHaveBeenCalledOnce();
   });
 });

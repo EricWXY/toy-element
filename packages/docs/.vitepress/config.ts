@@ -3,6 +3,7 @@ import {
   containerPreview,
   componentPreview,
 } from "@vitepress-demo-preview/plugin";
+import apiTable from "vitepress-api-table";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -28,9 +29,7 @@ export default defineConfig({
       {
         text: "基础组件",
         collapsed: false,
-        items: [
-          { text: "Button 按钮", link: "components/button" },
-        ],
+        items: [{ text: "Button 按钮", link: "components/button" }],
       },
     ],
 
@@ -42,6 +41,7 @@ export default defineConfig({
     config: (md) => {
       md.use(containerPreview);
       md.use(componentPreview);
+      md.use(apiTable)
     },
   },
 });

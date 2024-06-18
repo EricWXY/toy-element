@@ -13,8 +13,8 @@
   "license": "ISC",
   "devDependencies": {
     "@vitepress-demo-preview/plugin": "^1.2.3",
-    "vitepress-preview-component":"workspace:*",
+    "vitepress": "1.0.0-rc.44",
     "vitepress-api-table": "workspace:*",
-    "vitepress": "1.0.0-rc.44"
+    "vitepress-preview-component": "workspace:*"
   }
 }

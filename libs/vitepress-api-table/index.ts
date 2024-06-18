@@ -13,7 +13,7 @@ interface PropertyInfo {
   defaultValue?: string;
 }
 
-const md = new MarkdownIt();
+const mdit = new MarkdownIt();
 
 const _readFile = (filename: string) => {
   const __filename = fileURLToPath(import.meta.url);
@@ -25,18 +25,18 @@ const _readFile = (filename: string) => {
 
 const render: RenderRule = function (tokens, idx) {
   const token = tokens[idx];
-  const filePath = token.info.trim()?.split(" ").slice(1)[0]?.trim()?.split("=")[1];
+  const filePath = /src=([^\s]+)/.exec(token.info)?.[1]?.trim();
   let result = "";
 
   if (token.nesting === 1) {
-    const fileContent = _readFile(filePath);
+    const fileContent = _readFile(filePath ?? "");
     // 正则表达式匹配接口名称
     const interfaceRegex = /export\s+interface\s+(\w+)/g;
 
     // 执行匹配并存储所有接口名称
     let match: RegExpExecArray | null = null;
     while ((match = interfaceRegex.exec(fileContent)) !== null) {
-      result += md.render(generateMarkdownDocumentation(fileContent, match[1]));
+      result += mdit.render(generateMarkdownDocumentation(fileContent, match[1]));
     }
   }
   return result;
@@ -78,14 +78,17 @@ function parsePropertyComments(propertyStr: string): PropertyInfo[] {
       description: "",
     };
 
-    const propNameRegex = /@property\s*(.*?)\s*(?:\n\s*\*\s*@|\*\/)/s;
-    const propNameMatch = prop.match(propNameRegex);
+    const propNameMatch = prop.match(
+      /@property\s*(.*?)\s*(?:\n\s*\*\s*@|\*\/)/s
+    );
 
-    const descriptionRegex = /@description\s*(.*?)\s*(?:\n\s*\*\s*@|\*\/)/s;
-    const descMatch = prop.match(descriptionRegex);
+    const descMatch = prop.match(
+      /@description\s*(.*?)\s*(?:\n\s*\*\s*@|\*\/)/s
+    );
 
-    const defaultValueRegex = /@default\s*(.*?)\s*(?:\n\s*\*\s*@|\*\/)/s;
-    const defaultValueMatch = prop.match(defaultValueRegex);
+    const defaultValueMatch = prop.match(
+      /@default\s*(.*?)\s*(?:\n\s*\*\s*@|\*\/)/s
+    );
 
     if (propNameMatch) {
       propInfo.propertyName = propNameMatch[1].trim();

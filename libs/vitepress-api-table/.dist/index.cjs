@@ -19,12 +19,12 @@ var _readFile = function (filename) {
     return fs.readFileSync(path.resolve(__dirname, "../../../packages/" + filename)).toString("utf8");
 };
 var render = function (tokens, idx) {
-    var _a, _b, _c;
+    var _a, _b;
     var token = tokens[idx];
-    var filePath = (_c = (_b = (_a = token.info.trim()) === null || _a === void 0 ? void 0 : _a.split(" ").slice(1)[0]) === null || _b === void 0 ? void 0 : _b.trim()) === null || _c === void 0 ? void 0 : _c.split("=")[1];
+    var filePath = (_b = (_a = /src=([^\s]+)/.exec(token.info)) === null || _a === void 0 ? void 0 : _a[1]) === null || _b === void 0 ? void 0 : _b.trim();
     var result = "";
     if (token.nesting === 1) {
-        var fileContent = _readFile(filePath);
+        var fileContent = _readFile(filePath !== null && filePath !== void 0 ? filePath : "");
         // 正则表达式匹配接口名称
         var interfaceRegex = /export\s+interface\s+(\w+)/g;
         // 执行匹配并存储所有接口名称
@@ -61,12 +61,9 @@ function parsePropertyComments(propertyStr) {
             propertyType: "",
             description: "",
         };
-        var propNameRegex = /@property\s*(.*?)\s*(?:\n\s*\*\s*@|\*\/)/s;
-        var propNameMatch = prop.match(propNameRegex);
-        var descriptionRegex = /@description\s*(.*?)\s*(?:\n\s*\*\s*@|\*\/)/s;
-        var descMatch = prop.match(descriptionRegex);
-        var defaultValueRegex = /@default\s*(.*?)\s*(?:\n\s*\*\s*@|\*\/)/s;
-        var defaultValueMatch = prop.match(defaultValueRegex);
+        var propNameMatch = prop.match(/@property\s*(.*?)\s*(?:\n\s*\*\s*@|\*\/)/s);
+        var descMatch = prop.match(/@description\s*(.*?)\s*(?:\n\s*\*\s*@|\*\/)/s);
+        var defaultValueMatch = prop.match(/@default\s*(.*?)\s*(?:\n\s*\*\s*@|\*\/)/s);
         if (propNameMatch) {
             propInfo.propertyName = propNameMatch[1].trim();
         }

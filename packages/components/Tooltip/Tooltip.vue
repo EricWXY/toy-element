@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TooltipProps, TooltipEmits, TooltipInstance } from "./types";
 import { createPopper, type Instance } from "@popperjs/core";
-import { bind, debounce, isNil, type DebouncedFunc } from "lodash-es";
+import { bind, debounce, type DebouncedFunc } from "lodash-es";
 import { ref, watchEffect, watch, computed, onUnmounted, type Ref } from "vue";
 import { useClickOutside } from "@toy-element/hooks";
 
@@ -109,9 +109,7 @@ function attachEvents() {
 let popperInstance: null | Instance;
 
 function destroyPopperInstance() {
-  if (isNil(popperInstance)) return;
-
-  popperInstance.destroy();
+  popperInstance?.destroy();
   popperInstance = null;
 }
 
@@ -157,8 +155,7 @@ watch(
 
 watch(
   () => props.trigger,
-  (val, oldVal) => {
-    if (val === oldVal) return;
+  () => {
     openDebounce?.cancel();
     visible.value = false;
     emits("visible-change", false);

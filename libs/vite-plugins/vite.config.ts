@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [
     dts({
       include: ["./**/*.ts"],
-      exclude: ["./vite.config.ts"]
+      exclude: ["./vite.config.ts"],
     }),
   ],
   build: {
@@ -15,11 +15,19 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, "./index.ts"),
       name: "vitePlugins",
-      fileName: "index",
-      formats: ["es"],
     },
     rollupOptions: {
       external: ["shelljs", "lodash-es"],
+      output: [
+        {
+          format: "esm",
+          entryFileNames: "index.mjs",
+        },
+        {
+          format: "cjs",
+          entryFileNames: "index.cjs",
+        },
+      ],
     },
   },
 });

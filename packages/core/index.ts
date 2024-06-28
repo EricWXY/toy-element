@@ -12,4 +12,5 @@ const installer = makeInstaller(components);
 
 export * from "@toy-element/components";
 export * from '@toy-element/locale';
+
 export default installer;

@@ -5,4 +5,5 @@ import {withInstall} from '@toy-element/utils'
 export const ErDropdown = withInstall(Dropdown)
 export const ErDropdownItem = withInstall(DropdownItem)
 
+export * from './types'
 

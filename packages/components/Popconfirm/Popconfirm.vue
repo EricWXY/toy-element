@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { addUnit } from "@toy-element/utils";
+import { useLocale } from "@toy-element/hooks";
 import type { TooltipInstance } from "../Tooltip";
 import type { PopconfirmProps, PopconfirmEmits } from "./types";
 
@@ -15,8 +16,6 @@ defineOptions({
 const props = withDefaults(defineProps<PopconfirmProps>(), {
   title: "",
   confirmButtonType: "primary",
-  confirmButtonText: "Yes",
-  cancelButtonText: "No",
   icon: "question-circle",
   iconColor: "#f90",
   hideAfter: 200,
@@ -26,6 +25,8 @@ const props = withDefaults(defineProps<PopconfirmProps>(), {
 const emits = defineEmits<PopconfirmEmits>();
 const tooltipRef = ref<TooltipInstance>();
 const style = computed(() => ({ width: addUnit(props.width) }));
+
+const { t } = useLocale();
 
 function hidePopper() {
   tooltipRef.value?.hide();
@@ -51,11 +52,21 @@ function cancel(e: MouseEvent) {
           {{ title }}
         </div>
         <div class="er-popconfirm__action">
-          <er-button class="er-popconfirm__cancel" size="small" :type="cancelButtonType" @click="cancel">
-            {{ cancelButtonText }}
+          <er-button
+            class="er-popconfirm__cancel"
+            size="small"
+            :type="cancelButtonType"
+            @click="cancel"
+          >
+            {{ cancelButtonText || t("popconfirm.cancelButtonText") }}
           </er-button>
-          <er-button class="er-popconfirm__confirm" size="small" :type="confirmButtonType" @click="confrim">
-            {{ confirmButtonText }}
+          <er-button
+            class="er-popconfirm__confirm"
+            size="small"
+            :type="confirmButtonType"
+            @click="confrim"
+          >
+            {{ confirmButtonText || t("popconfirm.confirmButtonText") }}
           </er-button>
         </div>
       </div>

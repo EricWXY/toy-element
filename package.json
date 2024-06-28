@@ -48,12 +48,14 @@
     "vite": "^5.3.1",
     "vite-plugin-dts": "^3.9.1",
     "vitest": "^1.6.0",
-    "vue-tsc": "^2.0.21"
+    "vue-tsc": "^2.0.21",
+    "vue3-i18n": "^1.1.5"
   },
   "dependencies": {
     "@toy-element/hooks": "workspace:*",
     "@toy-element/theme": "workspace:*",
     "@toy-element/utils": "workspace:*",
+    "@toy-element/locale": "workspace:*",
     "@toy-element/vite-plugins": "workspace:*",
     "@vitest/coverage-v8": "^1.6.0",
     "@vue/test-utils": "^2.4.6",

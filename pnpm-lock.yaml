@@ -11,6 +11,9 @@ importers:
       '@toy-element/hooks':
         specifier: workspace:*
         version: link:packages/hooks
+      '@toy-element/locale':
+        specifier: workspace:*
+        version: link:packages/locale
       '@toy-element/theme':
         specifier: workspace:*
         version: link:packages/theme
@@ -120,6 +123,9 @@ importers:
       vue-tsc:
         specifier: ^2.0.21
         version: 2.0.21(typescript@5.4.5)
+      vue3-i18n:
+        specifier: ^1.1.5
+        version: 1.1.5(vue@3.4.29(typescript@5.4.5))
 
   libs/vite-plugins: {}
 
@@ -232,6 +238,8 @@ importers:
       vue:
         specifier: ^3.4.27
         version: 3.4.29(typescript@5.4.5)
+
+  packages/locale: {}
 
   packages/play:
     devDependencies:
@@ -5852,6 +5860,9 @@ packages:
   vue-component-type-helpers@2.0.21:
     resolution: {integrity: sha512-3NaicyZ7N4B6cft4bfb7dOnPbE9CjLcx+6wZWAg5zwszfO4qXRh+U52dN5r5ZZfc6iMaxKCEcoH9CmxxoFZHLg==}
 
+  vue-component-type-helpers@2.0.22:
+    resolution: {integrity: sha512-gPr2Ba7efUwy/Vfbuf735bHSVdN4ycoZUCHfypkI33M9DUH+ieRblLLVM2eImccFYaWNWwEzURx02EgoXDBmaQ==}
+
   vue-demi@0.14.8:
     resolution: {integrity: sha512-Uuqnk9YE9SsWeReYqK2alDI5YzciATE0r2SkA6iMAtuXvNTMNACJLJEXNXaEy94ECuBe4Sk6RzRU80kjdbIo1Q==}
     engines: {node: '>=12'}
@@ -5887,6 +5898,11 @@ packages:
     hasBin: true
     peerDependencies:
       typescript: '*'
+
+  vue3-i18n@1.1.5:
+    resolution: {integrity: sha512-DN5XfE0z6BnFxjbP/qW8AKI5QCex97L2l8z7G76ccTkfTsJ18n4mXGCy4K9H2rm4FlzDx/USPlPqQK64yXQqDg==}
+    peerDependencies:
+      vue: ^3.0.0
 
   vue@3.4.29:
     resolution: {integrity: sha512-8QUYfRcYzNlYuzKPfge1UWC6nF9ym0lx7mpGVPJYNhddxEf3DD0+kU07NTL0sXuiT2HuJuKr/iEO8WvXvT0RSQ==}
@@ -8270,7 +8286,7 @@ snapshots:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.4.29(typescript@5.4.5)
-      vue-component-type-helpers: 2.0.21
+      vue-component-type-helpers: 2.0.22
     transitivePeerDependencies:
       - encoding
       - prettier
@@ -12598,6 +12614,8 @@ snapshots:
 
   vue-component-type-helpers@2.0.21: {}
 
+  vue-component-type-helpers@2.0.22: {}
+
   vue-demi@0.14.8(vue@3.4.29(typescript@5.4.5)):
     dependencies:
       vue: 3.4.29(typescript@5.4.5)
@@ -12640,6 +12658,10 @@ snapshots:
       '@vue/language-core': 2.0.21(typescript@5.4.5)
       semver: 7.6.2
       typescript: 5.4.5
+
+  vue3-i18n@1.1.5(vue@3.4.29(typescript@5.4.5)):
+    dependencies:
+      vue: 3.4.29(typescript@5.4.5)
 
   vue@3.4.29(typescript@5.4.5):
     dependencies:

@@ -9,6 +9,7 @@ import {
   ErDropdown,
   ErDropdownItem,
   ErPopconfirm,
+  ErMessage
 } from "@toy-element/components";
 import type { Plugin } from "vue";
 
@@ -23,4 +24,5 @@ export default [
   ErDropdown,
   ErDropdownItem,
   ErPopconfirm,
+  ErMessage
 ] as Plugin[];

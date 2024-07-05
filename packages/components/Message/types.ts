@@ -1,4 +1,4 @@
-import type { VNode, ComponentInternalInstance } from "vue";
+import type { Ref, VNode, ComponentInternalInstance } from "vue";
 
 export const messageTypes = [
   "info",
@@ -30,7 +30,7 @@ export interface Message extends MessageFn {
 
 export interface MessageProps {
   id: string;
-  message?: string | VNode;
+  message?: string | VNode | (() => VNode);
   duration?: number;
   showClose?: boolean;
   center?: boolean;
@@ -50,6 +50,11 @@ export interface MessageInstance {
   props: MessageProps;
   vm: ComponentInternalInstance;
   handler: MessageHandler;
+}
+
+export interface MessageCompInstance {
+  close(): void;
+  bottomOffset: Ref<number>;
 }
 
 export type CreateMessageProps = Omit<

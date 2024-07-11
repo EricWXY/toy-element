@@ -1,38 +1,26 @@
-<script lang="ts" setup>
-import { ErMessage } from "toy-element";
+<script setup lang="ts">
+import { h } from "vue";
+import { ErNotification } from "toy-element";
 
-const open1 = () => {
-  ErMessage({
-    showClose: true,
-    message: "This is a message.",
+function openNotify1() {
+  ErNotification({
+    title: "Title",
+    message: h("i", { style: "color:teal" }, "This is a remider"),
+    position:'bottom-right'
   });
-};
-const open2 = () => {
-  ErMessage({
-    showClose: true,
-    message: "Congrats, this is a success message.",
-    type: "success",
+}
+
+function openNotify2() {
+  ErNotification({
+    title: "Prompt",
+    message: "This is a message that does not auto close",
+    duration: 0,
+    position:'top-left'
   });
-};
-const open3 = () => {
-  ErMessage({
-    showClose: true,
-    message: "Warning, this is a warning message.",
-    type: "warning",
-  });
-};
-const open4 = () => {
-  ErMessage({
-    showClose: true,
-    message: "Oops, this is a error message.",
-    type: "danger",
-  });
-};
+}
 </script>
 
 <template>
-  <er-button :plain="true" @click="open1">Message</er-button>
-  <er-button :plain="true" @click="open2">Success</er-button>
-  <er-button :plain="true" @click="open3">Warning</er-button>
-  <er-button :plain="true" @click="open4">Error</er-button>
+  <er-button @click="openNotify1" plain>Closes automatically</er-button>
+  <er-button @click="openNotify2" plain>Won't closes automatically</er-button>
 </template>

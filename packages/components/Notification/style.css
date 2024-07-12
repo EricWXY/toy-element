@@ -27,7 +27,12 @@
   overflow-wrap: anywhere;
   overflow: hidden;
   z-index: 9999;
-  right: 10px;
+  &.right {
+    right: 10px;
+  }
+  &.left {
+    left: 10px;
+  }
   
   .er-notification__text {
     margin: 0 10px;
@@ -74,8 +79,14 @@
 }
 
 .er-notification-fade-enter-from {
-  right: 0;
-  transform: translate(100%);
+  &.right {
+    right: 0;
+    transform: translate(100%);
+  }
+  &.left {
+    left: 0;
+    transform: translate(-100%);
+  }
 }
 .er-notification-fade-leave-to {
   opacity: 0;

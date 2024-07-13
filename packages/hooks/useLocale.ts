@@ -1,32 +1,31 @@
-import { inject, type Ref } from "vue";
+import { inject, ref, unref, computed, type Ref } from "vue";
 import { omit } from "lodash-es";
 import { createI18n, i18nSymbol, type I18nInstance } from "vue3-i18n";
 import type { Language } from "@toy-element/locale";
 import English from "@toy-element/locale/lang/en";
 
+const omitInstall = (obj: I18nInstance) => omit(obj, "install");
+
 export function useLocale(localeOverrides?: Ref<Language>) {
   if (!localeOverrides) {
-    return omit(
-      <I18nInstance>(
-        inject(
-          i18nSymbol,
-          createI18n({ locale: English.name, messages: { en: English.el } })
-        )
-      ),
-      "install"
-    );
+    const i18n: Ref<I18nInstance> =
+      inject(i18nSymbol) ??
+      ref(createI18n({ locale: English.name, messages: { en: English.el } }));
+
+    return computed(() => omitInstall(unref(i18n)));
   }
 
-  return omit(
-    createI18n({
-      locale: localeOverrides.value.name,
-      messages: {
-        en: English.el,
-        [localeOverrides.value.name]: localeOverrides.value.el,
-      },
-    }),
-    "install"
+  return computed(() =>
+    omitInstall(
+      createI18n({
+        locale: localeOverrides.value.name,
+        messages: {
+          en: English.el,
+          [localeOverrides.value.name]: localeOverrides.value.el,
+        },
+      })
+    )
   );
 }
 
-export default useLocale
+export default useLocale;

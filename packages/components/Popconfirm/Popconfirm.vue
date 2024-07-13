@@ -26,7 +26,7 @@ const emits = defineEmits<PopconfirmEmits>();
 const tooltipRef = ref<TooltipInstance>();
 const style = computed(() => ({ width: addUnit(props.width) }));
 
-const { t } = useLocale();
+const locale = useLocale();
 
 function hidePopper() {
   tooltipRef.value?.hide();
@@ -58,7 +58,7 @@ function cancel(e: MouseEvent) {
             :type="cancelButtonType"
             @click="cancel"
           >
-            {{ cancelButtonText || t("popconfirm.cancelButtonText") }}
+            {{ cancelButtonText || locale.t("popconfirm.cancelButtonText") }}
           </er-button>
           <er-button
             class="er-popconfirm__confirm"
@@ -66,7 +66,7 @@ function cancel(e: MouseEvent) {
             :type="confirmButtonType"
             @click="confrim"
           >
-            {{ confirmButtonText || t("popconfirm.confirmButtonText") }}
+            {{ confirmButtonText || locale.t("popconfirm.confirmButtonText") }}
           </er-button>
         </div>
       </div>

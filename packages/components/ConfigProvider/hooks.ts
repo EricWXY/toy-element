@@ -1,4 +1,12 @@
-import { ref, getCurrentInstance, inject, computed, provide, unref } from "vue";
+import {
+  ref,
+  getCurrentInstance,
+  inject,
+  computed,
+  provide,
+  unref,
+  watch,
+} from "vue";
 import type { MaybeRef, Ref, App } from "vue";
 import {
   type ConfigProviderContext,
@@ -67,16 +75,26 @@ export function provideGlobalConfig(
     return;
   }
 
-  const context = computed(() => {
-    const cfg = unref(config);
-    if (!oldCfg?.value) return cfg;
-    return merge(oldCfg.value, cfg);
-  });
+  const context = ref(unref(config));
+  watch(
+    () => config,
+    (val) => {
+      const cfg = unref(val);
+      if (!oldCfg?.value) return cfg;
+      context.value = merge(oldCfg.value, cfg);
+    },
+    { deep: true }
+  );
 
-  const i18n = computed(() => _createI18n(context.value));
+  const i18n = ref(_createI18n(context.value));
+  watch(
+    () => context.value,
+    (val) => (i18n.value = _createI18n(val)),
+    { deep: true }
+  );
 
   provideFn(configProviderContextKey, context);
-  provideFn(i18nSymbol, i18n.value);
+  provideFn(i18nSymbol, i18n);
 
   if (app) app.use(i18n.value);
   if (global || !globalConfig.value) globalConfig.value = context.value;

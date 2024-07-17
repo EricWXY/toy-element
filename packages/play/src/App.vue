@@ -1,30 +1,13 @@
-<script setup lang="ts">
-import { ja, ko, en, zhCn, zhTw, ErConfigProvider } from "toy-element";
-import { get } from "lodash-es";
+<script lang="ts" setup>
+import { reactive } from "vue";
 
-import { computed, ref } from "vue";
-
-const language = ref("zhTw");
-const langMap = {
-  ja,
-  ko,
-  en,
-  zhCn,
-  zhTw,
-} as const;
-const locale = computed(() => get(langMap, language.value));
-const changelang = () => {
-  const l = ["zhCn", "zhTw", "ko", "en", "ja"];
-  language.value = l[(l.indexOf(language.value) + 1) % l.length];
-};
+const form = reactive({
+  name: "",
+  desc: "",
+});
 </script>
+
 <template>
-  <er-button @click="changelang" type="info" style="margin-right: 20px"
-    >change language</er-button
-  >
-  <er-config-provider :locale="locale">
-    <er-popconfirm title="Are you shure to delete this item?">
-      <er-button>Delete</er-button>
-    </er-popconfirm>
-  </er-config-provider>
+  <er-input v-model="form.name" show-password type="password" />
+  <er-input v-model="form.desc" type="textarea" />
 </template>

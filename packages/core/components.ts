@@ -11,6 +11,7 @@ import {
   ErPopconfirm,
   ErMessage,
   ErNotification,
+  ErInput,
 } from "@toy-element/components";
 import type { Plugin } from "vue";
 
@@ -27,4 +28,5 @@ export default [
   ErPopconfirm,
   ErMessage,
   ErNotification,
+  ErInput,
 ] as Plugin[];

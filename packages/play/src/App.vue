@@ -1,13 +1,17 @@
-<script lang="ts" setup>
-import { reactive } from "vue";
+<script setup lang="ts">
+import { ErMessageBox, ErMessage } from "toy-element";
 
-const form = reactive({
-  name: "",
-  desc: "",
-});
+function openConfirm() {
+  ErMessageBox.confirm("proxy will permanently delete the file. Continue?", "Warning", { type: "warning" })
+    .then((action) => {
+      ErMessage.info(`action: ${action}`);
+    })
+    .catch((action) => {
+      ErMessage.warning(`action: ${action}`);
+    });
+}
 </script>
 
 <template>
-  <er-input v-model="form.name" show-password type="password" />
-  <er-input v-model="form.desc" type="textarea" />
+  <er-button @click="openConfirm" plain> Click to open the Confirm</er-button>
 </template>

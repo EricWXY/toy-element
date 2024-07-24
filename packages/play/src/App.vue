@@ -1,17 +1,36 @@
-<script setup lang="ts">
-import { ErMessageBox, ErMessage } from "toy-element";
+<script setup>
+import { ref } from "vue";
+import { ErLoading } from "toy-element";
 
-function openConfirm() {
-  ErMessageBox.confirm("proxy will permanently delete the file. Continue?", "Warning", { type: "warning" })
-    .then((action) => {
-      ErMessage.info(`action: ${action}`);
-    })
-    .catch((action) => {
-      ErMessage.warning(`action: ${action}`);
-    });
+const loading = ref(false);
+
+function openLoading1() {
+  loading.value = true;
+  setTimeout(() => {
+    loading.value = false;
+  }, 2000);
+}
+
+function openLoading2() {
+  const _loading = ErLoading.service({
+    lock: true,
+    spinner: "circle-notch",
+    text: "加载中...",
+    background: "rgba(255,255,255,0.5)",
+  });
+  setTimeout(() => {
+    _loading.close();
+  }, 2000);
 }
 </script>
 
 <template>
-  <er-button @click="openConfirm" plain> Click to open the Confirm</er-button>
+  <er-button
+    v-loading.fullscreen.lock="loading"
+    type="primary"
+    @click="openLoading1"
+  >
+    As a directive
+  </er-button>
+  <er-button type="primary" @click="openLoading2"> As a service </er-button>
 </template>

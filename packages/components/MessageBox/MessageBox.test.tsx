@@ -1,18 +1,7 @@
-import { describe, it, expect, vi } from "vitest";
-import { nextTick } from "vue";
 import type { MessageBoxType } from "./types";
+import { describe, it, expect, vi } from "vitest";
+import { rAF } from "@toy-element/utils";
 import MessageBox from "./methods";
-
-export const rAF = async () => {
-  return new Promise((res) => {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(async () => {
-        res(null);
-        await nextTick();
-      });
-    });
-  });
-};
 
 describe("MessageBox Component", () => {
   it("renders correctly", async () => {
@@ -69,8 +58,7 @@ describe("MessageBox Component", () => {
     };
 
     const doAction = vi.fn();
-    MessageBox(props)
-      .then((action) => doAction(action))
+    MessageBox(props).then((action) => doAction(action));
     await rAF();
 
     const confirmBtn = document.querySelector(
@@ -79,8 +67,7 @@ describe("MessageBox Component", () => {
     confirmBtn.click();
     await rAF();
 
-    expect(doAction).toBeCalledWith('confirm');
-
+    expect(doAction).toBeCalledWith("confirm");
   });
 
   it("triggers cancel action on cancel button click", async () => {
@@ -133,5 +120,4 @@ describe("MessageBox Component", () => {
       action: "confirm",
     });
   });
-
 });

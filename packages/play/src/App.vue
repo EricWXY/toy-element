@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { ErLoading } from "toy-element";
 
 const loading = ref(false);
+const switchVal = ref(1);
 
 function openLoading1() {
   loading.value = true;
@@ -33,4 +34,6 @@ function openLoading2() {
     As a directive
   </er-button>
   <er-button type="primary" @click="openLoading2"> As a service </er-button>
+  <er-switch v-model="switchVal" size="small" :active-value="0" :inactive-value="1" />
+  {{ switchVal }}
 </template>

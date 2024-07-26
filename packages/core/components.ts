@@ -14,6 +14,7 @@ import {
   ErMessageBox,
   ErInput,
   ErLoading,
+  ErSwitch,
 } from "@toy-element/components";
 import type { Plugin } from "vue";
 
@@ -33,4 +34,5 @@ export default [
   ErMessageBox,
   ErInput,
   ErLoading,
+  ErSwitch,
 ] as Plugin[];

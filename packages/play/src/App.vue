@@ -1,39 +1,13 @@
 <script setup>
 import { ref } from "vue";
-import { ErLoading } from "toy-element";
 
-const loading = ref(false);
-const switchVal = ref(1);
-
-function openLoading1() {
-  loading.value = true;
-  setTimeout(() => {
-    loading.value = false;
-  }, 2000);
-}
-
-function openLoading2() {
-  const _loading = ErLoading.service({
-    lock: true,
-    spinner: "circle-notch",
-    text: "加载中...",
-    background: "rgba(255,255,255,0.5)",
-  });
-  setTimeout(() => {
-    _loading.close();
-  }, 2000);
-}
+const options = ref([
+  { value: "beijing", label: "Beijing" },
+  { value: "shanghai", label: "Shanghai" },
+]);
+const value = ref("");
 </script>
 
 <template>
-  <er-button
-    v-loading.fullscreen.lock="loading"
-    type="primary"
-    @click="openLoading1"
-  >
-    As a directive
-  </er-button>
-  <er-button type="primary" @click="openLoading2"> As a service </er-button>
-  <er-switch v-model="switchVal" size="small" :active-value="0" :inactive-value="1" />
-  {{ switchVal }}
+  <er-select v-model="value" :options="options" clearable />
 </template>

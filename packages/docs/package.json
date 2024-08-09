@@ -2,6 +2,7 @@
   "name": "@toy-element/docs",
   "version": "1.0.0",
   "description": "",
+  "private": true,
   "type": "module",
   "main": "index.js",
   "scripts": {

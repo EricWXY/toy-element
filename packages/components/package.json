@@ -2,6 +2,7 @@
   "name": "@toy-element/components",
   "version": "1.0.0",
   "description": "",
+  "private":true,
   "main": "index.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test pnpm --filter @toy-element/hooks build && vitest --run --coverage",

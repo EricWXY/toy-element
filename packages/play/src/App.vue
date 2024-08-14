@@ -1,12 +1,12 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 
-const options = ref([
-  { value: "beijing", label: "Beijing" },
-  { value: "shanghai", label: "Shanghai" },
-  { value: "shenzhen", label: "Shenzhen", disabled: true },
-  { value: "hangzhou", label: "Hangzhou" },
-]);
+// const options = ref([
+//   { value: "beijing", label: "Beijing" },
+//   { value: "shanghai", label: "Shanghai" },
+//   { value: "shenzhen", label: "Shenzhen", disabled: true },
+//   { value: "hangzhou", label: "Hangzhou" },
+// ]);
 const value = ref("");
 </script>
 

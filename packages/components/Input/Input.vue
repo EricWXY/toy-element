@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { ref, computed, watch, useAttrs, shallowRef, nextTick } from "vue";
 import { useFocusController, useId } from "@toy-element/hooks";
+import { useFormItem } from "../Form";
 import { each, noop } from "lodash-es";
 import type { InputProps, InputEmits, InputInstance } from "./types";
 
 import Icon from "../Icon/Icon.vue";
+import { debugWarn } from "@toy-element/utils";
 
 defineOptions({
   name: "ErInput",
@@ -24,9 +26,10 @@ const pwdVisible = ref(false);
 const inputRef = shallowRef<HTMLInputElement>();
 const textareaRef = shallowRef<HTMLTextAreaElement>();
 
+const attrs = useAttrs();
+const { formItem } = useFormItem();
 const _ref = computed(() => inputRef.value || textareaRef.value);
 
-const attrs = useAttrs();
 const isDisabled = computed(() => props.disabled);
 
 const showClear = computed(
@@ -50,6 +53,7 @@ const { wrapperRef, isFocused, handleFocus, handleBlur } = useFocusController(
   {
     afterBlur() {
       // form 校验
+      formItem?.validate("blur").catch((err) => debugWarn(err));
     },
   }
 );
@@ -59,6 +63,7 @@ const clear: InputInstance["clear"] = function () {
   each(["input", "change", "update:modelValue"], (e) => emits(e as any, ""));
   emits("clear");
   // 清空表单校验
+  formItem?.clearValidate();
 };
 const focus: InputInstance["focus"] = async function () {
   await nextTick();
@@ -91,6 +96,7 @@ watch(
   (newVal) => {
     innerValue.value = newVal;
     // 表单校验出发
+    formItem?.validate("change").catch((err) => debugWarn(err));
   }
 );
 

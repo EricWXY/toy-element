@@ -8,18 +8,17 @@ import type {
   FormItemInstance,
   FormItemRule,
 } from "./types";
-
 import Schema, { type RuleItem } from "async-validator";
-import { FORM_CTX_KEY, FORM_ITEM_CTX_KEY } from "./constants";
 import {
+  type Ref,
+  ref,
   inject,
   onMounted,
-  ref,
   reactive,
   toRefs,
   computed,
+  nextTick,
   onUnmounted,
-  type Ref,
   provide,
 } from "vue";
 import {
@@ -33,8 +32,13 @@ import {
   keys,
   isArray,
   cloneDeep,
+  some,
+  isNumber,
+  endsWith,
 } from "lodash-es";
-import { nextTick } from "process";
+import { useId } from "@toy-element/hooks";
+
+import { FORM_CTX_KEY, FORM_ITEM_CTX_KEY } from "./constants";
 
 defineOptions({ name: "ErFormItem" });
 
@@ -45,8 +49,12 @@ const props = withDefaults(defineProps<FormItemProps>(), {
 const slots = defineSlots();
 const ctx = inject(FORM_CTX_KEY);
 
+const labelId = useId().value;
+
 const validateStatus: Ref<ValidateStatus> = ref("init");
 const errMsg = ref("");
+const inputIds = ref<string[]>([]);
+
 const getValByProp = (target: Record<string, any> | void) => {
   if (target && props.prop && !isNil(get(target, props.prop))) {
     return get(target, props.prop);
@@ -54,7 +62,31 @@ const getValByProp = (target: Record<string, any> | void) => {
   return null;
 };
 
+const hasLabel = computed(() => !!(props.label || slots.label));
+const labelFor = computed(
+  () => props.for || (inputIds.value.length ? inputIds.value[0] : "")
+);
+
+const currentLabel = computed(
+  () => `${props.label ?? ""}${ctx?.labelSuffix ?? ""}`
+);
+
+const normalizeLabelWidth = computed(() => {
+  const _normalizeStyle = (val: number | string) => {
+    if (isNumber(val)) return `${val}px`;
+    return endsWith(val, "px") ? val : `${val}px`;
+  };
+  if (props.labelWidth) return _normalizeStyle(props.labelWidth);
+  if (ctx?.labelWidth) return _normalizeStyle(ctx?.labelWidth);
+  return "150px";
+});
+
 const isDisabled = computed(() => ctx?.disabled || props.disabled);
+const isRequired = computed(
+  () =>
+    (!ctx?.hideRequiredAsterisk && some(itemRules.value, "required")) ||
+    props?.required
+);
 const innerVal = computed(() => {
   const model = ctx?.model;
   return getValByProp(model);
@@ -67,7 +99,6 @@ const propString = computed(() => {
 const itemRules = computed(() => {
   const { required } = props;
   const rules: FormItemRule[] = [];
-
   if (props.rules) {
     rules.push(...props.rules);
   }
@@ -75,7 +106,7 @@ const itemRules = computed(() => {
   if (formRules && props.prop) {
     const _rules = getValByProp(formRules);
     if (_rules) {
-      rules.push(...rules);
+      rules.push(..._rules);
     }
   }
 
@@ -105,6 +136,7 @@ let isResetting: boolean = false;
 function getTriggeredRules(trigger: string) {
   const rules = itemRules.value;
   if (!rules) return [];
+
   return filter(rules, (r) => {
     if (!r?.trigger || !trigger) return true;
     if (isArray(r.trigger)) {
@@ -151,6 +183,7 @@ const validate: FormItemInstance["validate"] = async function (
   }
 
   validateStatus.value = "validating";
+
   return doValidate(rules)
     .then(() => {
       callback?.(true);
@@ -178,14 +211,22 @@ const clearValidate: FormItemInstance["clearValidate"] = function () {
   isResetting = false;
 };
 
+const addInputId: FormItemContext["addInputId"] = function (id) {
+  if (!includes(inputIds.value, id)) inputIds.value.push(id);
+};
+
+const removeInputId: FormItemContext["removeInputId"] = function (id) {
+  inputIds.value = filter(inputIds.value, (i) => i !== id);
+};
+
 const formItemCtx: FormItemContext = reactive({
   ...toRefs(props),
   disabled: isDisabled.value,
   validate,
   resetField,
   clearValidate,
-  addInputId: () => {},
-  removeInputId: () => {},
+  addInputId,
+  removeInputId,
 });
 
 onMounted(() => {
@@ -211,10 +252,31 @@ defineExpose<FormItemInstance>({
 </script>
 
 <template>
-  <div class="er-form-item">
+  <div
+    class="er-form-item"
+    :class="{
+      'is-error': validateStatus === 'error',
+      'is-disabled': isDisabled,
+      'is-required': isRequired,
+      'asterisk-left': ctx?.requiredAsteriskPosition === 'left',
+      'asterisk-right': ctx?.requiredAsteriskPosition === 'right',
+    }"
+  >
+    <component
+      v-if="hasLabel"
+      class="er-form-item__label"
+      :class="`position-${ctx?.labelPosition ?? `right`}`"
+      :is="labelFor ? 'label' : 'div'"
+      :id="labelId"
+      :for="labelFor"
+    >
+      <slot name="label" :label="currentLabel">
+        {{ currentLabel }}
+      </slot>
+    </component>
     <div class="er-form-item__content">
-      <slot></slot>
-      <div class="er-form-item_error-msg" v-if="validateStatus === 'error'">
+      <slot :validate="validate"></slot>
+      <div class="er-form-item__error-msg" v-if="validateStatus === 'error'">
         <template v-if="ctx?.showMessage && showMessage">
           <slot name="error" :error="errMsg">{{ errMsg }}</slot>
         </template>
@@ -222,3 +284,11 @@ defineExpose<FormItemInstance>({
     </div>
   </div>
 </template>
+
+<style scoped>
+@import "./style.css";
+
+.er-form-item {
+  --er-form-lebel-width: v-bind(normalizeLabelWidth) !important;
+}
+</style>

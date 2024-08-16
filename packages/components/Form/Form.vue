@@ -5,14 +5,15 @@ import type {
   FormItemContext,
   FormContext,
   FormInstance,
-  FormValidateCallback,
 } from "./types";
 
 import { FORM_CTX_KEY } from "./constants";
 import { reactive, toRefs, provide } from "vue";
 import { each, filter, includes, size } from "lodash-es";
-import type { ValidateError, ValidateFieldsError } from "async-validator";
+import type { ValidateFieldsError } from "async-validator";
+
 defineOptions({ name: "ErForm" });
+
 const props = withDefaults(defineProps<FormProps>(), {
   showMessage: true,
   hideRequiredAsterisk: false,
@@ -58,7 +59,7 @@ const validateField: FormInstance["validateField"] = async function (
   callback
 ) {
   try {
-    const result = await doValidateField(filterFields(fields, keys ?? []));
+    const result = await doValidateField(filterFields(fields, keys));
     if (result === true) {
       callback?.(result);
     }
@@ -72,14 +73,14 @@ const validateField: FormInstance["validateField"] = async function (
 };
 
 const resetFields: FormInstance["resetFields"] = function (keys) {
-  each(filterFields(fields, keys ?? []), (field) => field.resetField());
+  each(filterFields(fields, keys), (field) => field.resetField());
 };
 
 const clearValidate: FormInstance["clearValidate"] = function (keys) {
-  each(filterFields(fields, keys ?? []), (field) => field.clearValidate());
+  each(filterFields(fields, keys), (field) => field.clearValidate());
 };
 
-function filterFields(fields: FormItemContext[], keys: string[]) {
+function filterFields(fields: FormItemContext[], keys: string[] = []) {
   return size(keys)
     ? filter(fields, (field) => includes(keys, field.prop))
     : fields;

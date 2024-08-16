@@ -17,6 +17,8 @@ import {
   ErSwitch,
   ErSelect,
   ErOption,
+  ErForm,
+  ErFormItem,
 } from "@toy-element/components";
 import type { Plugin } from "vue";
 
@@ -39,4 +41,6 @@ export default [
   ErSwitch,
   ErSelect,
   ErOption,
+  ErForm,
+  ErFormItem,
 ] as Plugin[];

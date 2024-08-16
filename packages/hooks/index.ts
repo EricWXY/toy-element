@@ -5,6 +5,7 @@ import useFocusController from "./useFocusController";
 import useLocale from "./useLocale";
 import useOffset from "./useOffset";
 import useZIndex from "./useZIndex";
+import useProp from "./useProp";
 import useId from "./useId";
 
 export {
@@ -15,5 +16,6 @@ export {
   useZIndex,
   useOffset,
   useLocale,
+  useProp,
   useId,
 };

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, useAttrs, shallowRef, nextTick } from "vue";
-import { useFocusController, useId } from "@toy-element/hooks";
-import { useFormItem } from "../Form";
+import { useFocusController } from "@toy-element/hooks";
+import { useFormItem, useFormDisabled, useFormItemInputId } from "../Form";
 import { each, noop } from "lodash-es";
 import type { InputProps, InputEmits, InputInstance } from "./types";
 
@@ -27,10 +27,12 @@ const inputRef = shallowRef<HTMLInputElement>();
 const textareaRef = shallowRef<HTMLTextAreaElement>();
 
 const attrs = useAttrs();
-const { formItem } = useFormItem();
 const _ref = computed(() => inputRef.value || textareaRef.value);
 
-const isDisabled = computed(() => props.disabled);
+const isDisabled = useFormDisabled();
+const { formItem } = useFormItem();
+
+const { inputId } = useFormItemInputId(props, formItem);
 
 const showClear = computed(
   () =>
@@ -134,7 +136,7 @@ defineExpose<InputInstance>({
         <input
           class="er-input__inner"
           ref="inputRef"
-          :id="useId().value"
+          :id="inputId"
           :type="showPassword ? (pwdVisible ? 'text' : 'password') : type"
           :disabled="isDisabled"
           :readonly="readonly"
@@ -183,7 +185,7 @@ defineExpose<InputInstance>({
       <textarea
         class="er-textarea__wrapper"
         ref="textareaRef"
-        :id="useId().value"
+        :id="inputId"
         :disabled="isDisabled"
         :readonly="readonly"
         :autocomplete="autocomplete"
